@@ -304,26 +304,50 @@ Number(9, 4, 1, 1) = 179: Number(9, 4, 1, 2) = 32: Number(9, 4, 1, 3) = 218: Num
 Number(9, 4, 2, 1) = 179: Number(9, 4, 2, 2) = 32: Number(9, 4, 2, 3) = 179: Number(9, 4, 2, 4) = 32: Number(9, 4, 2, 5) = 179
 Number(9, 4, 3, 1) = 192: Number(9, 4, 3, 2) = 196: Number(9, 4, 3, 3) = 193: Number(9, 4, 3, 4) = 196: Number(9, 4, 3, 5) = 217
 
+' ::::::::::::::::::::::::::::::::::::::::: COLON :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+FOR d = 1 TO 4: FOR r = 1 TO 5: FOR c = 1 TO 5
+            Number(10, d, r, c) = 32
+        NEXT c
+    NEXT r
+NEXT d
+
+' right :
+Number(10, 1, 1, 2) = 15
+Number(10, 1, 1, 4) = 15
+
+' left :
+Number(10, 2, 5, 2) = 15
+Number(10, 2, 5, 4) = 15
+
+' up :
+Number(10, 3, 2, 5) = 15
+Number(10, 3, 4, 5) = 15
+
+' down :
+Number(10, 4, 2, 1) = 15
+Number(10, 4, 4, 1) = 15
+
 ' ==========================================================================================================================
 
-FOR aaa = 0 TO 9
+FOR aaa = 0 TO 10
     COLOR 14: PRINT aaa
     COLOR 12
 
     FOR b = 1 TO 2:
 
-        FOR C = 1 TO 5: FOR r = 1 TO 3
-                PRINT CHR$(Number(aaa, b, C, r));
+        FOR c = 1 TO 5: FOR r = 1 TO 3
+                PRINT CHR$(Number(aaa, b, c, r));
             NEXT r
             PRINT
-        NEXT C
+        NEXT c
         PRINT
     NEXT b
     FOR b = 3 TO 4
         PRINT
-        FOR r = 1 TO 3: FOR C = 1 TO 5
-                PRINT CHR$(Number(aaa, b, r, C));
-            NEXT C
+        FOR r = 1 TO 3: FOR c = 1 TO 5
+                PRINT CHR$(Number(aaa, b, r, c));
+            NEXT c
             PRINT
         NEXT r
         PRINT
