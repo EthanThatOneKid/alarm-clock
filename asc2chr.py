@@ -1,4 +1,4 @@
-import sys
+import os, sys
 
 # Helpers
 def longest_string(strs):
@@ -11,9 +11,19 @@ def longest_string(strs):
 
 class Char_Numbers:
 
-    def __init__(self, lines):
+    def __init__(self, lines, rows=0):
+        self.rows = rows
         self.lines = lines
         self.cols = longest_string(lines)
+
+    def summarize(self):
+        message = ("Each line is {} character(s) wide.").format(self.cols)
+        if self.rows:
+            total_characters = ((len(self.lines) - 1) / self.rows)
+            message += ("\nEach character has {} row(s).\n").format(self.rows)
+            message += ("There are {} characters in total.\n").format(total_characters)
+            message += ("Each character is {}x{}.").format(self.cols, self.rows)
+        return message
 
     def to_string(self):
         result = ""
@@ -25,8 +35,23 @@ class Char_Numbers:
         return result
 
 # Main Process
-gimme_path = sys.argv[1]
-save_path = ""
-with open(gimme_path, "r") as f:
-    lines = f.read().split("\n")
-    char_nums = Char_Numbers(lines)
+# test cmd: py asc2chr.py "data/asc/nums-hor.asc" "3"
+try: rows = int(sys.argv[2])
+except: rows = 0
+try: gimme_path = sys.argv[1]
+except:
+    print("Need a path to a .asc file, bud.")
+    exit()
+save_path = gimme_path.replace("/asc/", "/chr/", 1).replace(".asc", ".chr", 1)
+success_message = ("/-\\|" * 20) + "\n"
+success_message += ("Saved {} with chr translation as {}.\n").format(gimme_path, save_path)
+success_message += "Courtesy of @EthanThatOneKid <3"
+with open(gimme_path, "r") as asc_file:
+    lines = asc_file.read().split("\n")
+    char_nums = Char_Numbers(lines, rows)
+    print(char_nums.summarize())
+    with open(save_path, "w") as chr_file:
+        result = char_nums.to_string()
+        chr_file.write(result)
+        print(success_message)
+exit()
