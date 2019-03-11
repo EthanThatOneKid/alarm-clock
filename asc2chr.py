@@ -17,11 +17,12 @@ class Char_Numbers:
         self.cols = longest_string(lines)
 
     def summarize(self):
-        message = ("Each line is {} character(s) wide.").format(self.cols)
+        message = ("Each line is {} character(s) wide.\n").format(self.cols)
+        message += ("There are {} line(s) in total.").format(len(self.lines))
         if self.rows:
-            total_characters = ((len(self.lines) - 1) / self.rows)
+            total_characters = len(self.lines) / self.rows
             message += ("\nEach character has {} row(s).\n").format(self.rows)
-            message += ("There are {} characters in total.\n").format(total_characters)
+            message += ("There are {} character(s) in total.\n").format(total_characters)
             message += ("Each character is {}x{}.").format(self.cols, self.rows)
         return message
 
