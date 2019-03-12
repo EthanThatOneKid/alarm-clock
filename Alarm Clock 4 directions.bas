@@ -1,15 +1,19 @@
-_FULLSCREEN
+'_FULLSCREEN
 _TITLE "Alarm Clock 4 Directions"
 DIM ROWS(4, 30) AS STRING
+DIM TIME_DIGITS(4) AS INTEGER
 DIM GIMME_PATH AS STRING
 DIM GIMME_CHAR AS STRING
 DIM GIMME_LINE AS STRING
+DIM ALIGN_OFFSET AS STRING
 
+' LOAD CHARACTER FILES
+ALIGN_OFFSET = "                             "
 FOR DIRECTION_INDEX = 1 TO 4
     GIMME_PATH = "data/chr/" + CHR$(DIRECTION_INDEX + 48) + ".chr"
     LINE_COUNTER = 0
     CHAR_COUNTER = 1
-    IF DIRECTION_INDEX MOD 2 = 0 THEN ROW_PER_ASC = 5 ELSE ROW_PER_ASC = 4
+    IF DIRECTION_INDEX > 2 THEN ROW_PER_ASC = 5 ELSE ROW_PER_ASC = 4
     OPEN GIMME_PATH FOR INPUT AS #1
     DO UNTIL EOF(1)
         INPUT #1, GIMME_CHAR
@@ -24,6 +28,46 @@ FOR DIRECTION_INDEX = 1 TO 4
     CLOSE #1
 NEXT DIRECTION_INDEX
 
-FOR i = 1 TO 30
-    PRINT ROWS(1, i) + "                " + ROWS(2, i) + "              " + ROWS(3, i) + "              " + ROWS(4, i)
-NEXT i
+' MAIN PROCESS
+DO
+    CLS
+    TIME_DIGITS(1) = VAL(MID$(TIME$, 1, 1))
+    TIME_DIGITS(2) = VAL(MID$(TIME$, 2, 1))
+    TIME_DIGITS(3) = VAL(MID$(TIME$, 4, 1))
+    TIME_DIGITS(4) = VAL(MID$(TIME$, 5, 1))
+
+    ' TITLE
+    COLOR 10
+    PRINT "                           Alarm Clock 4 Directions"
+    PRINT "                        By Gregory and Ethan Davidson"
+    PRINT
+
+    ' HORIZONTAL
+    FOR DIRECTION_INDEX = 1 TO 2
+        FOR ROW_INDEX = 1 TO 3
+            PRINT ALIGN_OFFSET;
+            FOR COL_INDEX = 1 TO 4
+                IF DIRECTION_INDEX > 1 THEN
+                    GIMME_ROW_INDEX = TIME_DIGITS(5 - COL_INDEX) * 3 + ROW_INDEX
+                ELSE
+                    GIMME_ROW_INDEX = TIME_DIGITS(COL_INDEX) * 3 + ROW_INDEX
+                END IF
+                PRINT ROWS(DIRECTION_INDEX, GIMME_ROW_INDEX) + " ";
+            NEXT COL_INDEX
+            PRINT
+        NEXT ROW_INDEX
+        PRINT
+    NEXT DIRECTION_INDEX
+
+    ' VERTICAL
+    FOR COL_INDEX = 1 TO 4
+        FOR ROW_INDEX = 1 TO 3
+            GIMME_ROW_INDEX_1 = TIME_DIGITS(COL_INDEX) * 3 + ROW_INDEX
+            GIMME_ROW_INDEX_2 = TIME_DIGITS(5 - COL_INDEX) * 3 + ROW_INDEX
+            PRINT ALIGN_OFFSET + ROWS(3, GIMME_ROW_INDEX_1) + "        " + ROWS(4, GIMME_ROW_INDEX_2);
+            PRINT
+        NEXT ROW_INDEX
+    NEXT COL_INDEX
+
+    _DELAY 15
+LOOP
