@@ -27,6 +27,7 @@ FOR DIRECTION_INDEX = 1 TO 4
     GIMME_PATH = "data/chr/" + CHR$(DIRECTION_INDEX + 48) + ".chr"
     LINE_COUNTER = 0
     CHAR_COUNTER = 1
+    GIMME_LINE = ""
     IF DIRECTION_INDEX > 2 THEN ROW_PER_ASC = 5 ELSE ROW_PER_ASC = 4
     OPEN GIMME_PATH FOR INPUT AS #1
     DO UNTIL EOF(1)
@@ -55,7 +56,6 @@ DO
     PRINT "                           Alarm Clock 4 Directions"
     PRINT "                        By Gregory and Ethan Davidson"
 
-
     ' HORIZONTAL
     FOR DIRECTION_INDEX = 1 TO 2
         FOR ROW_INDEX = 1 TO 3
@@ -78,7 +78,7 @@ DO
         FOR ROW_INDEX = 1 TO 3
             GIMME_ROW_INDEX_1 = TIME_DIGITS(5 - COL_INDEX) * 3 + ROW_INDEX
             GIMME_ROW_INDEX_2 = TIME_DIGITS(COL_INDEX) * 3 + ROW_INDEX
-            PRINT ALIGN_OFFSET + ROWS(4, GIMME_ROW_INDEX_1) + "        " + ROWS(3, GIMME_ROW_INDEX_2);
+            PRINT ALIGN_OFFSET + ROWS(4, GIMME_ROW_INDEX_1) + "         " + ROWS(3, GIMME_ROW_INDEX_2);
             PRINT
         NEXT ROW_INDEX
     NEXT COL_INDEX
