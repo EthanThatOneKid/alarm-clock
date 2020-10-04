@@ -2,6 +2,15 @@
 
 > by GDDMAD and Ethan Davidson
 
+## Demo 🤩
+
+<img
+  title="Screenshot at 12:04"
+  alt="Screenshot at 12:04"
+  src="data/static/demo.png"
+  style="text-align: center; filter: drop-shadow(0 0 0.75rem black);"
+/>
+
 ## Installation 💽
 
 [Download](https://github.com/EthanThatOneKid/alarm-clock/archive/master.zip) from GitHub or use Git in your terminal with `git clone https://github.com/EthanThatOneKid/alarm-clock`.
